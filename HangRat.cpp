@@ -18,9 +18,6 @@ int main()
     std::cout << "Maximum " << max << " characters, only lowercase letters and spaces plz\n";
     std::getline(std::cin, solutionToValidate);
 
-    //How do I contain validations inside a loop?
-    //while solutionIsValid = 0
-
     while (solutionIsValid == 0) {
         //VERIFY size doesn't exceed max
         if (solutionToValidate.size() > max) {
@@ -29,17 +26,19 @@ int main()
         }
         //VERIFY valid chars
         else if (solutionToValidate.size() <= max) {
-            for (int i = 0; i < solutionToValidate.size(); i++) {
-                if (solutionToValidate[i] != 32 && (solutionToValidate[i] < 'a' or solutionToValidate[i] > 'z')) { //32 is space
+            for (int i = 0; i <= solutionToValidate.size(); i++) {
+                if (i == solutionToValidate.size()) {
+                    solution = solutionToValidate; //validation pass, write to solution
+                    solutionIsValid = 1;
+                    break;
+
+                }
+                else if (solutionToValidate[i] != ' ' && (solutionToValidate[i] < 'a' or solutionToValidate[i] > 'z')) { //32 is space
                     std::cout << "just use lowercase letters and spaces please\n";
                     std::getline(std::cin, solutionToValidate);
                     break;
                 }
-                else if (i > solutionToValidate.size()) {
-                    solution = solutionToValidate; //validation pass, write to solution
-                    solutionIsValid = 1;
-
-                }
+                
             }
 
         }
