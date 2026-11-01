@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="HangRat.vcxproj" Id="174bb29d-6f0d-4d10-8c6f-e6cfc7f3b429" />
+</Solution>
