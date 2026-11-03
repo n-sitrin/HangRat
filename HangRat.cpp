@@ -50,7 +50,7 @@ int main()
         int maxLives = 6;
         char guess = '_'; //was getting warnings when this wasn't initialized, sus
         bool guessIsValid = 0;
-        char incorrectGuesses[6];
+        char incorrectGuesses[6] = {0,0,0,0,0,0};
         std::string guessToValidate;
         std::string display = solution;
         //change all chars to underscores, leave spaces as-is
@@ -70,7 +70,7 @@ int main()
             if (lives != maxLives) {
                 std::cout << "previous incorrect guesses: ";
                 for (int i = (maxLives - lives); i > 0; i--) {
-                    std::cout << incorrectGuesses[i] << " ";
+                    std::cout << incorrectGuesses[i-1] << " ";
                 }
                 std::cout << "\n";
             }
@@ -84,19 +84,20 @@ int main()
 
 
             while (guessIsValid == 0) {
-                //VERIFY size doesn't exceed max
+                //VERIFY single char
                 if (guessToValidate.size() != 1) {
                     std::cout << "just one letter please\n";
                     std::getline(std::cin, guessToValidate);
+                    continue;
                 }
                 //VERIFY valid chars
                 else {
                     //check against incorrectGuesses
-                    for (int i = 0; i < maxLives; i++) {
+                    for (int i = 0; i < maxLives-lives; i++) {
                         if (guessToValidate[0] == incorrectGuesses[i]) {
                             std::cout << "you've already guessed that one\n";
                             std::getline(std::cin, guessToValidate);
-                            break;
+                            continue;
                         }
                     }
 
@@ -124,8 +125,8 @@ int main()
                 }
                 if (i == solution.size() - 1 && found == 0) {
                     //incorrect guess stuff goes here
-                    lives--;
                     incorrectGuesses[maxLives - lives] = guess;
+                    lives--;
                     break;
                 }
                 if (i == solution.size() - 1 && found == 1) {
