@@ -75,6 +75,7 @@ int main()
                 std::cout << "\n";
             }
             
+            std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
             
             std::cout << display;
             std::cout << "\n";
