@@ -1,8 +1,5 @@
-// HangRat.cpp : This file contains the 'main' function. Program execution begins and ends there.
-
 #include <iostream>
 #include <string>
-
 
 int main()
 {
@@ -30,19 +27,14 @@ int main()
                     solution = solutionToValidate; //validation pass, write to solution
                     solutionIsValid = 1;
                     break;
-
                 }
                 else if (solutionToValidate[i] != ' ' && (solutionToValidate[i] < 'a' or solutionToValidate[i] > 'z')) { //32 is space
                     std::cout << "just use lowercase letters and spaces please\n";
                     std::getline(std::cin, solutionToValidate);
                     break;
                 }
-                
             }
-
         }
-        
-        
     }
 
         //initialize game params outside of game loop
@@ -59,13 +51,12 @@ int main()
                 display[i] = '_';
             }
         }
-
+        //move Player1's input off the standard terminal window size
         std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 
         //main game loop goes here
         for (lives = maxLives; lives > 0;) {
             bool found = 0; //CHECK loop returns to here
-
 
             std::cout << "\n" << "lives remaining: " << lives << "\n";
             //print previous incorrect guesses
@@ -77,14 +68,9 @@ int main()
                 std::cout << "\n";
             }
             
-            
-            
-            std::cout << display;
-            std::cout << "\n";
-            
+            std::cout << display << "\n";
             std::cout << "Player2 please guess a single lowercase letter\n";
             std::getline(std::cin, guessToValidate);
-
 
             while (guessIsValid == 0) {
                 //VERIFY single char
@@ -103,7 +89,6 @@ int main()
                             continue;
                         }
                     }
-
                     if (guessToValidate[0] >= 'a' && guessToValidate[0] <= 'z') {
                         guess = guessToValidate[0];
                         guessIsValid = 1; 
@@ -116,7 +101,6 @@ int main()
                     }
                 }
             }
-
             guessIsValid = 0;
 
             //CHECK if guess matches any of the characters in solution
@@ -136,32 +120,17 @@ int main()
                     break;
                 }
             }
-
-            
             if (display == solution) {
                 std::cout << "Player2 successfully guessed the phrase: " << solution << "\n";
                 std::cout << "Player2 is the cleverest rat\n";
                 break;
             }
-
-
             else if (lives == 0) {
                 std::cout << "Player2 ran out of lives, Player1 is the champion rat\n";
                 std::cout << "if you're curious what the solution was, just look up a few lines\n";
                 std::cout << "I couldn't figure out how to hide Player1's input string\n";
                 break;
             }
-            
-
-          
-            
-
-
         }
-        
-
-
-
-
 }
 
