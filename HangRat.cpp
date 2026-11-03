@@ -6,7 +6,6 @@
 
 int main()
 {
-    //declare string for solution
     std::string solution;
     std::string solutionToValidate;
     int max = 80;
@@ -46,15 +45,13 @@ int main()
         
     }
 
-    
-    
-    
-    
-
-
         //initialize game params outside of game loop
         int lives;
-        char guess;
+        int maxLives = 6;
+        char guess = '_'; //was getting warnings when this wasn't initialized, sus
+        bool guessIsValid = 0;
+        char incorrectGuesses[6];
+        std::string guessToValidate;
         std::string display = solution;
         //change all chars to underscores, leave spaces as-is
         for (int i = 0; i < display.size(); i++) {
@@ -64,46 +61,71 @@ int main()
         }
 
         //main game loop goes here
-        //what exactly is being looped? does an if condition work?
-        //if (lives > 0) {
-        for (lives = 6; lives > 0;) {
+        for (lives = maxLives; lives > 0;) {
             bool found = 0; //CHECK loop returns to here
 
 
-            std::cout << "lives remaining: " << lives << "\n";
+            std::cout << "\n" << "lives remaining: " << lives << "\n";
+            //print previous incorrect guesses
+            if (lives != maxLives) {
+                std::cout << "previous incorrect guesses: ";
+                for (int i = (maxLives - lives); i > 0; i--) {
+                    std::cout << incorrectGuesses[i] << " ";
+                }
+                std::cout << "\n";
+            }
+            
+            
             std::cout << display;
             std::cout << "\n";
-            //TODO print prev incorrect guesses
-            // would only ever need 5 or 6 prev guesses
-            std::cout << "Player2 please guess a single lowercase character\n";
-            std::cin >> guess;
-
-           //TODO VERIFY guess is valid. maybe have this as its own function?
-           // guess == standard alphabet character
-           // guess has not been previosly guessed
-           // gotta keep track of previous guesses? oh boy
-           // maybe not. if it's a duplicate correct guess, game proceeds
-           // if it's a duplicate incorrect guess then lives decrement, which feels bad
-           // OH I need a way to print previous guesses
-            //if guess is invalid, print invalid message then break/return one layer up to main game loop
-            //else, proceed
+            
+            std::cout << "Player2 please guess a single lowercase letter\n";
+            std::getline(std::cin, guessToValidate);
 
 
+            while (guessIsValid == 0) {
+                //VERIFY size doesn't exceed max
+                if (guessToValidate.size() != 1) {
+                    std::cout << "just one letter please\n";
+                    std::getline(std::cin, guessToValidate);
+                }
+                //VERIFY valid chars
+                else {
+                    //check against incorrectGuesses
+                    for (int i = 0; i < maxLives; i++) {
+                        if (guessToValidate[0] == incorrectGuesses[i]) {
+                            std::cout << "you've already guessed that one\n";
+                            std::getline(std::cin, guessToValidate);
+                            break;
+                        }
+                    }
+
+                    if (guessToValidate[0] >= 'a' && guessToValidate[0] <= 'z') {
+                        guess = guessToValidate[0];
+                        guessIsValid = 1; 
+                        break;
+                    }
+                    else {
+                        std::cout << "please make sure it's a lowercase letter\n";
+                        std::getline(std::cin, guessToValidate);
+                        break;
+                    }
+                }
+            }
+
+            guessIsValid = 0;
 
             //CHECK if guess matches any of the characters in solution
-
-            //if character matches, change display char at same index # to match, flip found to 1, and continue to next index
-            //at the end, if found == 1, return back to main game loop
-            //if found == 0, decrement lives and return to main game loop
-
             for (int i = 0; i < solution.size(); i++) {
                 int j = i;
                 if (guess == solution[i]) {
-                    display[i] = guess; //case sensitive :(
+                    display[i] = guess;
                     found = 1;
                 }
                 if (i == solution.size() - 1 && found == 0) {
+                    //incorrect guess stuff goes here
                     lives--;
+                    incorrectGuesses[maxLives - lives] = guess;
                     break;
                 }
                 if (i == solution.size() - 1 && found == 1) {
