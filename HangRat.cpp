@@ -60,6 +60,8 @@ int main()
             }
         }
 
+        std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+
         //main game loop goes here
         for (lives = maxLives; lives > 0;) {
             bool found = 0; //CHECK loop returns to here
@@ -75,7 +77,7 @@ int main()
                 std::cout << "\n";
             }
             
-            std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+            
             
             std::cout << display;
             std::cout << "\n";
