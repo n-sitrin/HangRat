@@ -70,7 +70,7 @@ int main() {
                 if (guessToValidate.size() != 1) {
                     std::cout << "just one letter please\n";
                     std::getline(std::cin, guessToValidate);
-                    break;
+                    continue;
                 }
                 //VERIFY valid chars
                 else {
