@@ -42,6 +42,7 @@ int main()
         int maxLives = 6;
         char guess = '_'; //was getting warnings when this wasn't initialized, sus
         bool guessIsValid = 0;
+        bool guessIsNew = 0;
         char incorrectGuesses[6] = {0,0,0,0,0,0};
         std::string guessToValidate;
         std::string display = solution;
@@ -77,18 +78,23 @@ int main()
                 if (guessToValidate.size() != 1) {
                     std::cout << "just one letter please\n";
                     std::getline(std::cin, guessToValidate);
-                    continue;
+                    break;
                 }
                 //VERIFY valid chars
                 else {
                     //check against incorrectGuesses
-                    for (int i = 0; i < maxLives-lives; i++) {
-                        if (guessToValidate[0] == incorrectGuesses[i]) {
-                            std::cout << "you've already guessed that one\n";
-                            std::getline(std::cin, guessToValidate);
-                            continue;
-                        }
+
+                    while (guessIsNew == 0) {
+                        guessIsNew = 1;
+                            for (int i = 0; i < maxLives - lives; i++) {
+                                if (guessToValidate[0] == incorrectGuesses[i]) {
+                                    std::cout << "you've already guessed that one\n";
+                                    std::getline(std::cin, guessToValidate);
+                                    guessIsNew = 0;
+                                }
+                            }
                     }
+                    
                     if (guessToValidate[0] >= 'a' && guessToValidate[0] <= 'z') {
                         guess = guessToValidate[0];
                         guessIsValid = 1; 
@@ -101,7 +107,9 @@ int main()
                     }
                 }
             }
+            //reset validation conditions for next time
             guessIsValid = 0;
+            guessIsNew = 0;
 
             //CHECK if guess matches any of the characters in solution
             for (int i = 0; i < solution.size(); i++) {
