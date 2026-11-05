@@ -1,16 +1,13 @@
 #include <iostream>
 #include <string>
 
-int main()
-{
-    std::string solution;
-    std::string solutionToValidate;
-    int max = 80;
+int main() {
+    std::string solution, solutionToValidate;
+    int max = 50;
     bool solutionIsValid = 0;
 
     std::cout << "Welcome to Hangrat!\nIt's just like Hangman, but the chosen word or phrase must be rodent themed\n";
-    std::cout << "(I have no way to verify this)\n\n";
-    std::cout << "Player1, please input your chosen word or phrase\n";
+    std::cout << "(I have no way to verify this)\n\n" << "Player1, please input your chosen word or phrase\n";
     std::cout << "Maximum " << max << " characters, only lowercase letters and spaces plz\n";
     std::getline(std::cin, solutionToValidate);
 
@@ -36,16 +33,12 @@ int main()
             }
         }
     }
-
         //initialize game params outside of game loop
-        int lives;
-        int maxLives = 6;
+        int lives, maxLives = 6;
         char guess = '_'; //was getting warnings when this wasn't initialized, sus
-        bool guessIsValid = 0;
-        bool guessIsNew = 0;
+        bool guessIsValid = 0, guessIsNew = 0;
         char incorrectGuesses[6] = {0,0,0,0,0,0};
-        std::string guessToValidate;
-        std::string display = solution;
+        std::string guessToValidate, display = solution;
         //change all chars to underscores, leave spaces as-is
         for (int i = 0; i < display.size(); i++) {
             if (display[i] != ' ') {
@@ -69,8 +62,7 @@ int main()
                 std::cout << "\n";
             }
             
-            std::cout << display << "\n";
-            std::cout << "Player2 please guess a single lowercase letter\n";
+            std::cout << display << "\n" << "Player2 please guess a single lowercase letter\n";
             std::getline(std::cin, guessToValidate);
 
             while (guessIsValid == 0) {
@@ -83,7 +75,6 @@ int main()
                 //VERIFY valid chars
                 else {
                     //check against incorrectGuesses
-
                     while (guessIsNew == 0) {
                         guessIsNew = 1;
                             for (int i = 0; i < maxLives - lives; i++) {
@@ -134,8 +125,7 @@ int main()
                 break;
             }
             else if (lives == 0) {
-                std::cout << "Player2 ran out of lives, Player1 is the champion rat\n";
-                std::cout << "if you're curious what the solution was, just look up a few lines\n";
+                std::cout << "Player2 ran out of lives, Player1 is the champion rat\n" << "if you're curious what the solution was, just look up a few lines\n";
                 std::cout << "I couldn't figure out how to hide Player1's input string\n";
                 break;
             }
